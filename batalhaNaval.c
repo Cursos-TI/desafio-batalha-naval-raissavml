@@ -1,41 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 
-// Desafio Batalha Naval - MateCheck
-// Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
-// Siga os comentários para implementar cada parte do desafio.
-
-    // Nível Novato - Posicionamento dos Navios
-    // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[5][5];).
-    // Sugestão: Posicione dois navios no tabuleiro, um verticalmente e outro horizontalmente.
-    // Sugestão: Utilize `printf` para exibir as coordenadas de cada parte dos navios.
-
-    // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
-    // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
-    // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
-    // Sugestão: Exiba o tabuleiro completo no console, mostrando 0 para posições vazias e 3 para posições ocupadas.
-
-    // Nível Mestre - Habilidades Especiais com Matrizes
-    // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
-    // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
-    // Sugestão: Exiba o tabuleiro com as áreas afetadas, utilizando 0 para áreas não afetadas e 1 para áreas atingidas.
-
-    // Exemplos de exibição das habilidades:
-    // Exemplo para habilidade em cone:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 1 1 1 1 1
-    
-    // Exemplo para habilidade em octaedro:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 0 0 1 0 0
-
-    // Exemplo para habilidade em cruz:
-    // 0 0 1 0 0
-    // 1 1 1 1 1
-    // 0 0 1 0 0
-
 // Print field and ship function
 int printFieldAndShip(int rows, int columns, int field[rows][columns])
 {
@@ -93,21 +58,101 @@ int verifyShipPosition(int rows, int columns, int field[rows][columns], int star
                     scanf("%d", &startShipCol);
                     printf("\nObrigada, capitão! Iremos manobrar a embarcação!\n");
                     verifyShipPosition(10, 10, field, startShipRow, startShipCol, 2);
+                    printf("\n");
                 }
-                printf("\n");
             }
-        } else{
+        }
+        else
+        {
             printf("Esta coordenada causará colisão dos navios.\n  Conforme protocolo, precisamos de uma nova coordenada para a embarcação, capitão.\n");
-                    printf("Reanalise o campo de batalha, a posição do contratorpedeiro, e considerando a frente do navio como a casa superior e que o submarino não pode passar por baixo do contratorpedeiro, selecione:\n");
-                    printFieldAndShip(10, 10, field);
-                    printf("- A linha em que  estará a frente do submarino: \n");
-                    scanf("%d", &startShipRow);
-                    printf("- A coluna em que o submarino se posicionará: \n");
-                    scanf("%d", &startShipCol);
-                    printf("\nObrigada, capitão! Iremos manobrar a embarcação!\n");
-                    verifyShipPosition(10, 10, field, startShipRow, startShipCol, 2);
+            printf("Reanalise o campo de batalha, a posição do contratorpedeiro, e considerando a frente do navio como a casa superior e que o submarino não pode passar por baixo do contratorpedeiro, selecione:\n");
+            printFieldAndShip(10, 10, field);
+            printf("- A linha em que  estará a frente do submarino: \n");
+            scanf("%d", &startShipRow);
+            printf("- A coluna em que o submarino se posicionará: \n");
+            scanf("%d", &startShipCol);
+            printf("\nObrigada, capitão! Iremos manobrar a embarcação!\n");
+            verifyShipPosition(10, 10, field, startShipRow, startShipCol, 2);
+            printf("\n");
         }
     }
+    else if (shipNumber == 3)
+    {
+        if (field[startShipRow - 1][startShipCol - 1] == 0 && field[startShipRow][startShipCol] == 0 && field[startShipRow + 1][startShipCol + 1] == 0)
+        {
+            if (startShipRow < 9 && startShipCol < 9)
+            {
+                printf("\nObrigada, capitão! Iremos manobrar a embarcação!\n");
+                field[startShipRow - 1][startShipCol - 1] = 3;
+                field[startShipRow][startShipCol] = 3;
+                field[startShipRow + 1][startShipCol + 1] = 3;
+                printf("Embarcação posicionada, Capitão!\n");
+                printf("\n");
+                printFieldAndShip(10, 10, field);
+            }
+            else
+            {
+                printf("Esta coordenada causará colisão dos navios.\n  Conforme protocolo, precisamos de uma nova coordenada para a embarcação, capitão.\n");
+                printf("Reanalise no campo de batalha a posição das embarcações presentes, e considerando que a frente do porta-aviões se encontra-se na casa superior à esquerda e ele não pode ocupar nenhuma casa em que já estejam presentes embarcações, selecione:\n");
+                printf("- A linha em que  estará a frente do porta-aviões: \n");
+                scanf("%d", &startShipRow);
+                printf("- A coluna em que o porta-aviões se posicionará: \n");
+                scanf("%d", &startShipCol);
+                verifyShipPosition(10, 10, field, startShipRow, startShipCol, 3);
+                printf("\n");
+            }
+        }
+        else
+        {
+            printf("Esta coordenada causará colisão dos navios.\n  Conforme protocolo, precisamos de uma nova coordenada para a embarcação, capitão.\n");
+            printf("Reanalise no campo de batalha a posição das embarcações presentes, e considerando que a frente do porta-aviões se encontra-se na casa superior à esquerda e ele não pode ocupar nenhuma casa em que já estejam presentes embarcações, selecione:\n");
+            printf("- A linha em que  estará a frente do porta-aviões: \n");
+            scanf("%d", &startShipRow);
+            printf("- A coluna em que o porta-aviões se posicionará: \n");
+            scanf("%d", &startShipCol);
+            verifyShipPosition(10, 10, field, startShipRow, startShipCol, 3);
+            printf("\n");
+        }
+    }
+    else if (shipNumber == 4)
+    {
+        if (field[startShipRow - 1][startShipCol + 1] == 0 && field[startShipRow][startShipCol] == 0 && field[startShipRow + 1][startShipCol - 1] == 0)
+        {
+            if (startShipRow < 9 && startShipCol < 9)
+            {
+                printf("\nObrigada, capitão! Iremos manobrar a embarcação!\n");
+                field[startShipRow - 1][startShipCol + 1] = 4;
+                field[startShipRow][startShipCol] = 4;
+                field[startShipRow + 1][startShipCol - 1] = 4;
+                printf("Embarcação posicionada, Capitão!\n");
+                printf("\n");
+                printFieldAndShip(10, 10, field);
+            }
+            else
+            {
+                printf("Esta coordenada causará colisão dos navios.\n  Conforme protocolo, precisamos de uma nova coordenada para a embarcação, capitão.\n");
+                printf("Reanalise no campo de batalha a posição das embarcações presentes, e considerando que a frente do encouraçado se encontra-se na casa superior à direita e ele não pode ocupar nenhuma casa em que já estejam presentes embarcações, selecione:\n");
+                printf("- A linha em que  estará a frente do encouraçado: \n");
+                scanf("%d", &startShipRow);
+                printf("- A coluna em que o encouraçado se posicionará: \n");
+                scanf("%d", &startShipCol);
+                verifyShipPosition(10, 10, field, startShipRow, startShipCol, 4);
+                printf("\n");
+            }
+        }
+        else
+        {
+            printf("Esta coordenada causará colisão dos navios.\n  Conforme protocolo, precisamos de uma nova coordenada para a embarcação, capitão.\n");
+            printf("Reanalise no campo de batalha a posição das embarcações presentes, e considerando que a frente do encouraçado se encontra-se na casa superior à direita e ele não pode ocupar nenhuma casa em que já estejam presentes embarcações, selecione:\n");
+            printf("- A linha em que  estará a frente do encouraçado: \n");
+            scanf("%d", &startShipRow);
+            printf("- A coluna em que o encouraçado se posicionará: \n");
+            scanf("%d", &startShipCol);
+            verifyShipPosition(10, 10, field, startShipRow, startShipCol, 4);
+            printf("\n");
+        }
+    }
+
     return 0;
 };
 
@@ -115,8 +160,10 @@ int verifyShipPosition(int rows, int columns, int field[rows][columns], int star
 void placeShip(int rows, int columns, int field[rows][columns])
 {
     // Set ship type to visually distinguish them and improve the gameplay experience
-    int ship1[1][3] = { {1, 1, 1} };
-    int ship2[3][1] = { {2}, {2}, {2} };
+    int ship1[1][3] = {{1, 1, 1}};
+    int ship2[3][1] = {{2}, {2}, {2}};
+    int ship3[3][3] = {{3, 0, 0}, {0, 3, 0}, {0, 0, 3}};
+    int ship4[3][3] = {{0, 0, 4}, {0, 4, 0}, {4, 0, 0}};
     int startShipRow;
     int startShipCol;
 
@@ -129,6 +176,10 @@ void placeShip(int rows, int columns, int field[rows][columns])
     printf("Contratorpedeiro: \n");
     printFieldAndShip(1, 3, ship1);
     printf("Submarino:\n");
+    printFieldAndShip(3, 1, ship2);
+    printf("Porta-aviões: \n");
+    printFieldAndShip(1, 3, ship1);
+    printf("Encouraçado:\n");
     printFieldAndShip(3, 1, ship2);
     printf("Analise o campo de batalha e, considerando que a frente do navio é a casa mais a esquerda, selecione:\n");
     printf("- A linha em que o contratorpedeiro se posicionará: \n");
@@ -162,6 +213,20 @@ void placeShip(int rows, int columns, int field[rows][columns])
     printf("- A coluna em que o submarino se posicionará: \n");
     scanf("%d", &startShipCol);
     verifyShipPosition(10, 10, field, startShipRow, startShipCol, 2);
+
+    printf("Analise no campo de batalha a posição das embarcações presentes, e considerando que a frente do porta-aviões se encontra-se na casa superior à esquerda e ele não pode ocupar nenhuma casa em que já estejam presentes embarcações, selecione:\n");
+    printf("- A linha em que  estará a frente do porta-aviões: \n");
+    scanf("%d", &startShipRow);
+    printf("- A coluna em que o porta-aviões se posicionará: \n");
+    scanf("%d", &startShipCol);
+    verifyShipPosition(10, 10, field, startShipRow, startShipCol, 3);
+
+    printf("Analise no campo de batalha a posição das embarcações presentes, e considerando que a frente do encouraçado se encontra-se na casa superior à direita e ele não pode ocupar nenhuma casa em que já estejam presentes embarcações, selecione:\n");
+    printf("- A linha em que  estará a frente do encouraçado: \n");
+    scanf("%d", &startShipRow);
+    printf("- A coluna em que o encouraçado se posicionará: \n");
+    scanf("%d", &startShipCol);
+    verifyShipPosition(10, 10, field, startShipRow, startShipCol, 4);
 }
 
 // Menu Function
@@ -178,7 +243,7 @@ void menu(int rows, int columns, int field[rows][columns])
 
     switch (option)
     {
-    char saida;
+        char saida;
     case 1:
         // Rulles
         printf("Você possui um tabuleiro de 10 x 10, onde deve posicionar seus navios para a batalha.\n Você receberá uma frota de 4 navios do mesmo tamanho (3 casas), para posicionar na sua área de combate. \n");
